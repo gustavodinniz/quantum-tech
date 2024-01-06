@@ -1,0 +1,54 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /quantum-tech
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/quantum-tech
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+      dialect: org.hibernate.dialect.MySQLDialect
+  cloud:
+    aws:
+      endpoint: http://localhost:4566
+      credentials:
+        profile:
+          name: localstack
+      region:
+        static: sa-east-1
+      s3:
+        endpoint: http://s3.localhost.localstack.cloud:4566
+      sqs:
+        endpoint: http://localhost:4566
+  batch:
+    jdbc:
+      initialize-schema: always
+
+logging:
+  file:
+    path: .
+    name: quantum-tech.log
+  level:
+    root: info
+    org:
+      springframework:
+      web: info
+    com:
+      porto:
+        ccon: debug
+
+management:
+  endpoint:
+    health:
+      show-components: always
+  endpoints:
+    web:
+      exposure:
+        include: actuator,logfile,metrics,health,info
+      base-path: /v1/actuator
