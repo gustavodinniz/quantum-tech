@@ -10,9 +10,11 @@ aws configure set region $AWS_REGION --profile=localstack
 echo "########### Setting default profile ###########"
 export AWS_DEFAULT_PROFILE=localstack
 
-echo "########### Setting SQS names as env variables ###########"
+echo "########### Setting env variables ###########"
 export SQS_UPDATE_STORE_INVENTORY=SQS-QuantumTech-UpdateStoreInventory
 export SQS_REGISTER_SALES=SQS-QuantumTech-RegisterSales
+export S3_UPDATE_STORE_INVENTORY=update-store-inventory
+export S3_REGISTER_SALES=register-sales
 
 echo "########### Creating update store inventory SQS ###########"
 aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name $SQS_UPDATE_STORE_INVENTORY
@@ -32,10 +34,6 @@ SQS_REGISTER_SALES_ARN=$(aws --endpoint-url=http://localstack:4566 sqs get-queue
 
 echo "########### Listing queues ###########"
 aws --endpoint-url=http://localhost:4566 sqs list-queues
-
-echo "########### Setting S3 names as env variables ###########"
-export S3_UPDATE_STORE_INVENTORY=update-store-inventory
-export S3_REGISTER_SALES=register-sales
 
 echo "########### Creating S3 buckets ###########"
 aws --endpoint-url=http://localhost:4566 s3api create-bucket\

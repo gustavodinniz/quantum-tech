@@ -52,3 +52,10 @@ management:
       exposure:
         include: actuator,logfile,metrics,health,info
       base-path: /v1/actuator
+
+cloud:
+  aws:
+    sqs:
+      queues:
+        update-store-inventory: SQS-QuantumTech-UpdateStoreInventory
+        register-sales: SQS-QuantumTech-RegisterSales
